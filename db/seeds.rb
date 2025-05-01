@@ -10,3 +10,15 @@ Admin.create!(
   email: 'admin@hoge.com',
   password: 'hogehoge'
 )
+
+Customer.create!(
+  email: 'customer@hoge.com',
+  password: 'hogehoge',
+  last_name: '誠也',
+  first_name: '鈴木',
+  last_name_kana: 'せいや',
+  first_name_kana: 'すずき',
+  postal_code: '1111111',
+  address: 'hoge',
+  telephone_number: '11111111111'
+)
