@@ -18,7 +18,16 @@ class Admin::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected
+  protected
+  # サインイン後注文履歴一覧（管理者トップページ）に遷移
+  def after_sign_in_path_for(resource)
+    admin_homes_top_path
+  end
+
+  # サインアウト後管理者ログインページに遷移
+  def after_sign_out_path_for(resource)
+    new_admin_session_path
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
