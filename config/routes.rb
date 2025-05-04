@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # 顧客側
   # public/homes ルートディレクトリの設定を兼ねる
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
@@ -26,35 +27,25 @@ Rails.application.routes.draw do
   # public/addresses
   resources :addresses, only: [:create, :index, :update, :destroy, :edit], controller: 'public/addresses'
 
-  
-  # admin
-  namespace :admin do
-    get 'orders/show'
-  
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  
-    get 'genres/index'
-    get 'genres/edit'
-  
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  
-    get 'homes/top'
-  end
-
-  # 顧客側のURL変更
+  # Devise 顧客側URL変更
   devise_for :customers, skip: [:password], controllers: {
     registrations: "public/registrations",
     sessions: "public/sessions"
   }
+  
 
-  # 管理者側のURL変更
+  # 管理者側
+  namespace :admin do
+    root to: 'homes#top'
+    resources :items, only: [:create, :index, :show, :update, :edit, :new]
+    resources :genres, only: [:create, :index, :update, :edit]
+    resources :customers, only: [:index, :show, :update, :edit]
+    resources :orders, only: [:show, :update]
+    resources :order_details, only: [:update]
+  end
+
+  # Devise 管理者側URL変更
   devise_for :admins, skip: [:password, :registrations], controllers: {
     sessions: "admin/sessions"
   }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
