@@ -14,10 +14,20 @@ Rails.application.routes.draw do
     patch 'my_page' => '/public/customers#withdraw'
   end
 
-  # cart_items
-  # get 'cart_items/index' ここから作業
+  # public/cart_items
+  resources :cart_items, only: [:create, :index, :update, :destroy], controller: 'public/cart_items'
+  delete 'cart_items' => 'public/cart_items#destroy_all'
 
+  # public/orders
+  resources :orders, only: [:create, :index, :show, :new], controller: 'public/orders'
+  post 'orders/confirm' => 'public/orders#confirm'
+  get 'orders/complete' => 'public/orders#complete'
 
+  # public/addresses
+  resources :addresses, only: [:create, :index, :update, :destroy, :edit], controller: 'public/addresses'
+
+  
+  # admin
   namespace :admin do
     get 'orders/show'
   
@@ -34,25 +44,6 @@ Rails.application.routes.draw do
     get 'items/edit'
   
     get 'homes/top'
-  end
-
-  namespace :public do
-    # homes
-    # 最上部に記述
-
-
-
-
-    # orders
-    get 'orders/new'
-    get 'orders/confirm'
-    get 'orders/complete'
-    get 'orders/index'
-    get 'orders/show'
-
-    # addresses
-    get 'addresses/index'
-    get 'addresses/edit'
   end
 
   # 顧客側のURL変更
