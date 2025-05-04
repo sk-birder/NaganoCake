@@ -18,7 +18,7 @@
           <% if admin_signed_in? %>
             <div class="navbar-brand">ながのCake</div>
           <% else %>
-            <%= link_to 'ながのCake', public_homes_top_path, class: "navbar-brand" %>
+            <%= link_to 'ながのCake', root_path, class: "navbar-brand" %>
           <% end %>
           
           <div class="dummy">
@@ -32,12 +32,12 @@
             <%= link_to 'ジャンル一覧', admin_genres_index_path, class: "nav-link" %>
             <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %>
           <% elsif customer_signed_in? %>
-            <%= link_to 'マイページ', public_customers_show_path, class: "nav-link" %>
+            <%= link_to 'マイページ', public_my_page_path, class: "nav-link" %>
             <%= link_to '商品一覧', public_items_index_path, class: "nav-link" %>
             <%= link_to 'カート', public_cart_items_index_path, class: "nav-link" %>
             <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: "nav-link" %>
           <% else %>
-            <%= link_to 'About', public_homes_about_path, class: "nav-link" %>
+            <%= link_to 'About', about_path, class: "nav-link" %>
             <%= link_to '商品一覧', public_items_index_path, class: "nav-link" %>
             <%= link_to '新規登録', new_customer_registration_path, class: "nav-link" %>
             <%= link_to 'ログイン', new_customer_session_path, class: "nav-link" %>
