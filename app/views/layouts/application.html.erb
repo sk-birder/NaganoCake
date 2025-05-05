@@ -11,41 +11,43 @@
   </head>
 
   <body>
-  <header>
-    <nav class="navbar navbar-expand-lg" style="background-color:#ffffaa">
-      <div class="container">
-        <div class="row">
-          <% if admin_signed_in? %>
-            <div class="navbar-brand">ながのCake</div>
-          <% else %>
-            <%= link_to 'ながのCake', root_path, class: "navbar-brand" %>
-          <% end %>
-          
-          <div class="dummy">
-            <!-- 空白予定地 -->
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color:#ffffaa">
+        <div class="container">
+          <div class="row">
+            <% if admin_signed_in? %>
+              <div class="navbar-brand">ながのCake</div>
+            <% else %>
+              <%= link_to 'ながのCake', root_path, class: "navbar-brand" %>
+            <% end %>
+            
+            <div class="dummy">
+              <% if customer_signed_in? %>
+                ようこそ、<%= current_customer.last_name %>さん！
+              <% end %>
+            </div>
+            
+            <% if admin_signed_in? %>
+              <%= link_to '商品一覧', admin_items_path, class: "nav-link" %>
+              <%= link_to '会員一覧', admin_customers_path, class: "nav-link" %>
+              <%= link_to '注文履歴一覧', admin_root_path, class: "nav-link" %>
+              <%= link_to 'ジャンル一覧', admin_genres_path, class: "nav-link" %>
+              <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %>
+            <% elsif customer_signed_in? %>
+              <%= link_to 'マイページ', customers_my_page_path, class: "nav-link" %>
+              <%= link_to '商品一覧', items_path, class: "nav-link" %>
+              <%= link_to 'カート', cart_items_path, class: "nav-link" %>
+              <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: "nav-link" %>
+            <% else %>
+              <%= link_to 'About', about_path, class: "nav-link" %>
+              <%= link_to '商品一覧', items_path, class: "nav-link" %>
+              <%= link_to '新規登録', new_customer_registration_path, class: "nav-link" %>
+              <%= link_to 'ログイン', new_customer_session_path, class: "nav-link" %>
+            <% end %>
           </div>
-          
-          <% if admin_signed_in? %>
-            <%= link_to '商品一覧', admin_items_index_path, class: "nav-link" %>
-            <%= link_to '会員一覧', admin_customers_index_path, class: "nav-link" %>
-            <%= link_to '注文履歴一覧', admin_homes_top_path, class: "nav-link" %>
-            <%= link_to 'ジャンル一覧', admin_genres_index_path, class: "nav-link" %>
-            <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %>
-          <% elsif customer_signed_in? %>
-            <%= link_to 'マイページ', public_my_page_path, class: "nav-link" %>
-            <%= link_to '商品一覧', public_items_index_path, class: "nav-link" %>
-            <%= link_to 'カート', public_cart_items_index_path, class: "nav-link" %>
-            <%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: "nav-link" %>
-          <% else %>
-            <%= link_to 'About', about_path, class: "nav-link" %>
-            <%= link_to '商品一覧', public_items_index_path, class: "nav-link" %>
-            <%= link_to '新規登録', new_customer_registration_path, class: "nav-link" %>
-            <%= link_to 'ログイン', new_customer_session_path, class: "nav-link" %>
-          <% end %>
         </div>
-      </div>
-    </nav>
-  </header>
-<%= yield %>
+      </nav>
+    </header>
+    <%= yield %>
   </body>
 </html>

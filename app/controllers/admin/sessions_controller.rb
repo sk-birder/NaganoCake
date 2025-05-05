@@ -21,7 +21,7 @@ class Admin::SessionsController < Devise::SessionsController
   protected
   # サインイン後注文履歴一覧（管理者トップページ）に遷移
   def after_sign_in_path_for(resource)
-    admin_homes_top_path
+    admin_root_path
   end
 
   # サインアウト後管理者ログインページに遷移
