@@ -5,3 +5,16 @@
   <%= f.text_field :name, autofocus: true, placeholder: 'ジャンル名' %>
   <%= f.submit '新規登録', class: "btn btn-success" %>
 <% end %>
+
+<table>
+  <thead>
+    <th>ジャンル</th>
+    <th></th>
+  </thead>
+  <% @genres.each do |genres| %>
+    <tr>
+      <td><%= genres.name %></td>
+      <td><%= link_to '編集する', edit_admin_genre_path(genres.id), class: "btn btn-success" %></td>
+    </tr>
+  <% end %>
+</table>
