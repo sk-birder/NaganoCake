@@ -1,2 +1,24 @@
-<h1>Admin::Items#index</h1>
-<p>Find me in app/views/admin/items/index.html.erb</p>
+<p>Admin::Items#index</p>
+<h2>商品一覧</h2>
+<table>
+  <thead>
+    <tr>
+      <td>商品ID</td>
+      <td>商品名</td>
+      <td>税抜価格</td>
+      <td>ジャンル</td>
+      <td>ステータス</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |items| %>
+      <tr>
+        <td><%= @items.id %></td>
+        <td><%= @items.name %></td>
+        <td><%= @items.price %></td>
+        <td><%= @items.genre_id %></td> <!-- 中間テーブルを作成してジャンル名表示に変更する -->
+        <td><%= @items.is_active %></td> <!-- True, Falseではなく販売中, 販売停止中に変更する -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
