@@ -1,23 +1,26 @@
 <p>Admin::Items#new</p>
 <h2>商品新規登録</h2>
 <%= form_with model: [:admin, @new_item] do |f| %>
-  <%= f.label :商品画像 %>
-  <!-- < f.file_field : > --><br />
+  <%= f.label :商品画像, class:"col-2" %>
+  <%= f.file_field :item_image, accept: "image/*", class:"col-4" %><br />
 
-  <%= f.label :商品名 %>
-  <%= f.text_field :name, autofocus: true, placeholder: '商品名' %><br />
+  <%= f.label :商品名, class:"col-2" %>
+  <%= f.text_field :name, autofocus: true, placeholder: '商品名', class:"col-4" %><br />
 
-  <%= f.label :商品説明 %>
-  <%= f.text_area :introduction, placeholder: 'ここに説明文を記述します' %><br />
+  <%= f.label :商品説明, class:"col-2" %>
+  <%= f.text_area :introduction, placeholder: 'ここに説明文を記述します', class:"col-4" %><br />
 
-  <%= f.label :ジャンル（未実装） %>
-  <%= f.text_field :genre_id %><br />
+  <%= f.label :ジャンル, class:"col-2" %>
+  <%= f.collection_select :genre_id, Genre.order(:id), :id, :name, class:"col-4" %><br />
 
-  <%= f.label :税抜価格 %>
-  <%= f.text_field :price, placeholder: '1000' %><br />
+  <%= f.label :税抜価格, class:"col-2" %>
+  <%= f.text_field :price, placeholder: '1000', class:"col-4" %><br />
 
-  <%= f.label :販売ステータス（未実装） %>
-  <%= f.text_field :status %><br />
+  <%= f.label :販売ステータス, class:"col-2" %>
+  <%= f.radio_button(:status, 'true') %>
+  <%= f.label(:status, '販売中', value: 'true') %>
+  <%= f.radio_button :status, 'false' %>
+  <%= f.label(:status, '販売停止中', value: 'false') %><br />
 
   <%= f.submit '新規登録', class: "btn btn-success" %>
 <% end %>
