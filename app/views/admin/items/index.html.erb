@@ -13,12 +13,12 @@
   <tbody>
     <% @items.each do |items| %>
       <tr>
-        <td><%= @items.id %></td>
-        <td><%= @items.name %></td>
-        <td><%= @items.price %></td>
-        <td><%= @genres.find(@items.genre_id) %></td> <!-- N+1問題を起こしていないか確認する -->
+        <td><%= items.id %></td>
+        <td><%= items.name %></td>
+        <td><%= items.price %></td>
+        <td><%= @genres.find(items.genre_id) %></td> <!-- N+1問題を起こしていないか確認する -->
         <td>
-          <%= @items.is_active %>
+          <%= items.is_active %>
         </td> <!-- True, Falseではなく販売中, 販売停止中に変更する if文で作成する -->
       </tr>
     <% end %>
