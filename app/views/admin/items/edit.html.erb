@@ -1,2 +1,58 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<h2>
+  <span class="bg-light px-5">商品編集</span>
+</h2>
+
+<div class="error_explanation">
+<% if @item.errors.any? %>
+  <h4><%= @item.errors.count %>件のエラー</h4>
+  <ul>
+    <% @item.errors.full_messages.each do |m| %>
+      <li><%= m %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="d-flex justify-content-center">
+  <%= form_with model: [:admin, @item] do |f| %>
+    <table>
+      <tr>
+        <td><%= f.label :商品画像 %></td>
+        <td><%= f.file_field :item_image, accept: "image/*" %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :商品名 %></td>
+        <td><%= f.text_field :name, autofocus: true, placeholder: '商品名' %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :商品説明 %></td>
+        <td><%= f.text_area :introduction, placeholder: 'ここに説明文を記述します', class: "col-6" %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :ジャンル %></td>
+        <td><%= f.collection_select :genre_id, Genre.order(:id), :id, :name %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :税抜価格 %></td>
+        <td><%= f.text_field :price, placeholder: '1000' %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :販売ステータス %></td>
+        <td>
+          <%= f.radio_button(:is_active, 'true', checked: true) %>
+          <%= f.label(:is_active, '販売中', value: 'true') %>
+          <%= f.radio_button :is_active, 'false' %>
+          <%= f.label(:is_active, '販売停止中', value: 'false') %>
+        </td>
+      </tr>
+    </table>
+    <%= f.submit '変更を保存', class: "btn btn-success" %>
+  <% end %>
+</div>
+
+<!-- ボタン表記が違うため部分テンプレートの採用を取りやめ -->
+<!-- render '/admin/item_form', item: @item -->

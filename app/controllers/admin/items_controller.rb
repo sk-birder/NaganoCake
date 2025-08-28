@@ -7,27 +7,38 @@ class Admin::ItemsController < ApplicationController
   end
 
   def new
-    @new_item = Item.new
+    @item = Item.new
   end
 
   def create
-    @new_item = Item.new(item_params)
-    if @new_item.save
+    @item = Item.new(item_params)
+    if @item.save
       # flash[:notice] = "You have created book successfully."
-      redirect_to admin_item_path(@new_item.id)
+      redirect_to admin_item_path(@item.id), notice: '登録に成功しました。'
     else
-      render
+      render :new
     end
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to admin_item_path(@item), notice: '編集に成功しました。'
+    else
+      render :edit
+    end
   end
 
   private
   def item_params
-    params.require(:item).permit(:name, :introduction, :genre_id, :price, :is_active)
+    params.require(:item).permit(:item_image, :name, :introduction, :genre_id, :price, :is_active)
   end
 end

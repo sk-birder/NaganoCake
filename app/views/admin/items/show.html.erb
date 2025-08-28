@@ -1,2 +1,39 @@
-<h1>Admin::Items#show</h1>
-<p>Find me in app/views/admin/items/show.html.erb</p>
+<h2>
+  <span class="bg-light px-5">商品詳細</span>
+</h2>
+<div class="row d-flex justify-content-center">
+  <div class="col-3">
+    <%= image_tag @item.item_image, width: "100%" %>
+  </div>
+
+  <table class="col-8">
+    <tr>
+      <td>商品名</td>
+      <td><%= @item.name %></td>
+    </tr>
+    <tr>
+      <td>商品説明</td>
+      <td><%= @item.introduction %></td>
+    </tr>
+    <tr>
+      <td>ジャンル</td>
+      <td><%= @item.genre.name %></td>
+    </tr>
+    <tr>
+      <td>税込価格<br />（税抜価格）</td>
+      <td><%= number_with_delimiter(@item.price_with_tax) %>（<%= number_with_delimiter(@item.price) %>）円</td>
+    </tr>
+    <tr>
+      <td>販売ステータス</td>
+      <td>
+        <%= @item.is_active ? 
+          '<span class="text-success">販売中</span>'.html_safe :
+          '<span class="text-secondary">販売停止中</span>'.html_safe
+        %>
+      </td> <!-- 条件演算子（三項演算子）を使用 -->
+    </tr>
+  </table>
+</div>
+<div class="text-center">
+  <%= link_to '編集する', edit_admin_item_path(@item), class: 'btn btn-success p-3' %>
+</div>

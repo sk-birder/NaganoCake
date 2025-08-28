@@ -2,8 +2,18 @@
   <span class="bg-light px-5">商品新規登録</span>
 </h2>
 
+<div class="error_explanation">
+<% if @item.errors.any? %>
+  <h4><%= @item.errors.count %>件のエラー</h4>
+  <ul>
+    <% @item.errors.full_messages.each do |m| %>
+      <li><%= m %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <div class="d-flex justify-content-center">
-  <%= form_with model: [:admin, @new_item] do |f| %>
+  <%= form_with model: [:admin, @item] do |f| %>
     <table>
       <tr>
         <td><%= f.label :商品画像 %></td>
@@ -33,7 +43,7 @@
       <tr>
         <td><%= f.label :販売ステータス %></td>
         <td>
-          <%= f.radio_button(:is_active, 'true') %>
+          <%= f.radio_button(:is_active, 'true', checked: true) %>
           <%= f.label(:is_active, '販売中', value: 'true') %>
           <%= f.radio_button :is_active, 'false' %>
           <%= f.label(:is_active, '販売停止中', value: 'false') %>
@@ -43,3 +53,6 @@
     <%= f.submit '新規登録', class: "btn btn-success" %>
   <% end %>
 </div>
+
+<!-- ボタン表記が違うため部分テンプレートの採用を取りやめ -->
+<!-- render '/admin/item_form', item: @item -->
