@@ -44,7 +44,7 @@ class Public::SessionsController < Devise::SessionsController
     return if customer.nil?
     # 存在すればパスワードの照合 不一致ならばreturn
     return unless customer.valid_password?(params[:customer][:password])
-    # パスワード一致てもis_activeがfalseならばサインアップ画面へ遷移
+    # パスワード一致でもis_activeがfalseならばサインアップ画面へ遷移
     redirect_to new_customer_registration_path unless customer.is_active
   end
 end

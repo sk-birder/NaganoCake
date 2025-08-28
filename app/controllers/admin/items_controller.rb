@@ -2,8 +2,8 @@ class Admin::ItemsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @items = Item.all
-    @genres = Genre.all
+    # N+1問題を回避するため、genresテーブルを事前に結合
+    @items = Item.includes(:genre).all
   end
 
   def new

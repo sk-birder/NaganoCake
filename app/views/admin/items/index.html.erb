@@ -1,26 +1,32 @@
-<p>Admin::Items#index</p>
-<h2>商品一覧</h2>
-<table>
-  <thead>
-    <tr>
-      <td>商品ID</td>
-      <td>商品名</td>
-      <td>税抜価格</td>
-      <td>ジャンル</td>
-      <td>ステータス</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |items| %>
+<h2>
+  <span class="bg-light px-5">商品一覧</span>
+</h2>
+<div class="d-flex justify-content-center">
+  <table class="table col-8">
+    <thead class="bg-light">
       <tr>
-        <td><%= items.id %></td>
-        <td><%= items.name %></td>
-        <td><%= items.price %></td>
-        <td><%= @genres.find(items.genre_id) %></td> <!-- N+1問題を起こしていないか確認する -->
-        <td>
-          <%= items.is_active %>
-        </td> <!-- True, Falseではなく販売中, 販売停止中に変更する if文で作成する -->
+        <td>商品ID</td>
+        <td>商品名</td>
+        <td>税抜価格</td>
+        <td>ジャンル</td>
+        <td>ステータス</td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= number_with_delimiter(item.price) %></td>
+          <td><%= item.genre.name %></td>
+          <td>
+            <%= item.is_active ? 
+              '<span class="text-success">販売中</span>'.html_safe :
+              '<span class="text-secondary">販売停止中</span>'.html_safe
+            %>
+          </td> <!-- 条件演算子（三項演算子）を使用 -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
