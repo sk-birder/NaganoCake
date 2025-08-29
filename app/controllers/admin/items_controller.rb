@@ -3,7 +3,8 @@ class Admin::ItemsController < ApplicationController
 
   def index
     # N+1問題を回避するため、genresテーブルを事前に結合
-    @items = Item.includes(:genre).all
+    # @items = Item.includes(:genre).all
+    @items = Item.includes(:genre).page(params[:page])
   end
 
   def new
